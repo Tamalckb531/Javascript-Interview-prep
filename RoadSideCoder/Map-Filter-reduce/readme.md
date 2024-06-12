@@ -42,3 +42,7 @@ _Polyfills:_
       1. If exist : call the callback which will store the operated value in accumulator
       2. If doesn't exist: it will be init with this[i]
    4. return the accumulator.
+
+## Important topic to know :
+
+1. Map and foreach almost do the same work but map don't change the main array and return a new array with modified values where foreach change the array assigned to it.
