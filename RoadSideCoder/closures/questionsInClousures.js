@@ -56,12 +56,129 @@
 //? without let:
 
 
-for (var i = 0; i < 3; i++) {
-    function inner(i) {
-        setTimeout(function log() {
-            console.log(i); //? This will show 3 for three times
-        }, i * 1000);
+// for (var i = 0; i < 3; i++) {
+//     function inner(i) {
+//         setTimeout(function log() {
+//             console.log(i); //? This will show 3 for three times
+//         }, i * 1000);
+//     }
+//     inner(i);
+// }
+
+//? Private counter
+
+// function counter() {
+//     var _counter = 0;
+
+//     function add(increment) {
+//         _counter += increment;
+//     }
+
+//     function retrive() {
+//         return "Counter = " + _counter;
+//     }
+
+//     return {
+//         add,
+//         retrive
+//     };
+// }
+
+// const c = counter();
+
+// c.add(5);
+// c.add(10);
+// c.add(15);
+
+// console.log(c.retrive());
+
+//? Module pattern
+
+// var Module = (function () {
+//     function privateMethod() {
+//         console.log("public");
+//     }
+
+//     return {
+//         publicMethod: function () {
+//             console.log("public");
+//         }
+//     }
+// })();
+
+// Module.publicMethod();
+
+//? Make this run only once
+
+// let view;
+// function likeTheVideo() {
+//     let called = 0;
+
+//     return function () {
+//         if (called > 0) {
+//             console.log("Already subscribed");
+//         } else {
+//             view = "Roadside Coder";
+//             console.log("Subscribe to", view);
+//             called++;
+//         }
+//     }
+// }
+// let isSubscribed = likeTheVideo();
+// isSubscribed();
+// isSubscribed();
+// isSubscribed();
+// isSubscribed();
+
+//? Once polyfill function:
+
+// function once(func, context) {
+//     let ran;
+
+//     return function () {
+//         if (func) {
+//             ran = func.apply(context || this, arguments);
+//             func = null;
+//         }
+
+//         return ran;
+//     }
+// }
+
+// const hello = once((a, b) => console.log("hello", a, b));
+
+// hello(1, 2);
+// hello(3, 2);
+// hello(3, 4);
+// hello(4, 5);
+
+//? Memoize Polyfill
+
+function myMemoize(fn, context) {
+    const res = {};
+
+    return function (...args) {
+        var argsCache = JSON.stringify(args);
+        if (!res[argsCache]) {
+            res[argsCache] = fn.call(context || this, ...args);
+        }
+        return res[argsCache];
+
     }
-    inner(i);
 }
 
+const clumsyProduct = (num1, num2) => {
+    for (let i = 1; i <= 100000000; i++) {
+    }
+    return num1 * num2;
+}
+
+const memoizedClumsyProduct = myMemoize(clumsyProduct);
+
+console.time("First call");
+console.log(memoizedClumsyProduct(9841, 1564));
+console.timeEnd("First call");
+
+console.time("Second call");
+console.log(memoizedClumsyProduct(9841, 1564));
+console.timeEnd("Second call");
