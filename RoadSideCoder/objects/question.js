@@ -224,10 +224,10 @@
 //! Three ways to clone a object without modifying the main object
 
 
-let user = {
-    name: "Tamal",
-    age: 22
-}
+// let user = {
+//     name: "Tamal",
+//     age: 22
+// }
 
 //? way 1
 
@@ -242,8 +242,8 @@ let user = {
 
 //? way 3
 
-const objClone = { ...user };
-objClone.name = "Dip";
+// const objClone = { ...user };
+// objClone.name = "Dip";
 
-console.log(user, objClone);
+// console.log(user, objClone);
 
