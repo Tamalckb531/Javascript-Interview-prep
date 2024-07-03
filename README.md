@@ -1,4 +1,3 @@
 # Javascript-Interview-prep
 
-Some important javascript interview questions and concept clearance  
- test
+Some important javascript interview questions and concept clearance
